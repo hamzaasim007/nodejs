@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+
+# Job to build the Docker image
+build:
+  stage: build
+  script:
+    - docker build -t nodeapp .
+  only:
+    - master
+
+# Job to run the Docker container
+deploy:
+  stage: deploy
+  script:
+    - docker run -d -p 3000:3000 nodeapp
+  only:
+    - master
